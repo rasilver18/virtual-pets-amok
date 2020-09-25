@@ -3,23 +3,26 @@ package main.java;
 import java.util.Map;
 import java.util.Scanner;
 
-public class VirtualPetShelterAPP {
+public class VirtualPetShelterApp {
+
 
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
         Scanner reply = new Scanner(System.in);
+        Scanner breed = new Scanner(System.in);
         main.java.VirtualPetShelter adoptablePets = new main.java.VirtualPetShelter();
-        adoptablePets.intake(new main.java.VirtualPet("Ollie", "A Siamese Cat", 10, 10, 10, 10));
-        adoptablePets.intake(new main.java.VirtualPet("Jelly", "A Persian Cat", 10, 10, 10, 10));
-        adoptablePets.intake(new main.java.VirtualPet("Schnitzel", "A fat calico", 10, 10, 10, 10));
-        adoptablePets.intake(new main.java.VirtualPet("Rufus", "A weird dog.", 10, 10, 10, 10));
-        adoptablePets.intake(new main.java.VirtualPet("Professor", "A good pug", 10, 10, 10, 10));
-        adoptablePets.intake(new main.java.VirtualPet("Stitch", "He's blue", 10, 10, 10, 10));
+         adoptablePets.intake(new main.java.OrganicCat("Ollie", "organic", "A Siamese Cat", 10, 10, 10, 10, 10, 10));
+        adoptablePets.intake(new main.java.RoboticCat("Jelly", "robotic", "A Persian Cat", 10, 10, 10, 10, 10));
+         adoptablePets.intake(new main.java.OrganicCat("Schnitzel", "organic", "A fat calico", 10, 10, 10, 10, 10, 10));
+        adoptablePets.intake(new main.java.RoboticDog("Rufus", "robotic", "Actually a Furby", 10, 10, 10, 10, 10));
+        adoptablePets.intake(new main.java.OrganicDog("Professor", "organic", "A good pug", 10, 10, 10, 10, 10, 10));
+          adoptablePets.intake(new main.java.RoboticDog("Stitch", "robotic", "He's blue", 10, 10, 10, 10, 10));
+
         System.out.println("Thanks for signing in for your shift today!");
 
 
         System.out.println("The pets we have in the shelter right now are ");
-        showPetStatuses(adoptablePets);
+        adoptablePets.petDisplay();
 
 
         System.out.println("What would you like to do on your shift?");
@@ -50,36 +53,57 @@ public class VirtualPetShelterAPP {
                 System.out.println("Thanks for letting us out. Now guests can see that we've been coming out of our cages and doing just fine");
                 adoptablePets.playWithAllPets();
             } else if (menuOption.equals("5")) {
+                System.out.println("Those litterboxes were starting to smell. Thank you! ");
+                adoptablePets.cleanAllLitterbox();
+            } else if (menuOption.equals("6")) {
+                System.out.println("Yay! We are so excited for the walk! Now we will be less likely to pee in our cages.");
+                adoptablePets.walkTheDogs();
+            } else if (menuOption.equals("7")) {
+                System.out.println("We were getting a little rusty. Thank you for the oil");
+                adoptablePets.oilRoboPets();
+            } else if (menuOption.equals("8")) {
                 System.out.println("Congratulations on doing a great job as a shelter worker! Which pet is being adopted?");
-                showPetStatuses(adoptablePets);
+//                adoptablePets.showNames();
                 String petName = input.next();
                 adoptablePets.adoptPet(petName);
-                showPetStatuses(adoptablePets);
+             adoptablePets.petDisplay();
                 System.out.println("Bye " + petName + "! We wish you the best!");
 
-            } else if (menuOption.equals("6")) {
+            } else if (menuOption.equals("9")) {
                 System.out.println("oh no! A pet is being brought into the shelter. Lets get them ready for a loving home. What is this pet's name?");
                 String intakePetName = input.next();
                 System.out.println("Please write a brief description of the pet including breed and coloring");
                 String intakePetDescription = reply.nextLine();
                 System.out.println("Let's help " + intakePetName + " find a good home!");
-                adoptablePets.intake(new main.java.VirtualPet(intakePetName, intakePetDescription, 10, 10, 10, 10));
-                showPetStatuses(adoptablePets);
+                System.out.println("What type of pet is this? You may select an organic cat, organic dog, robotic cat, or robotic dog.");
+                String petType = breed.nextLine();
+                if (petType.equalsIgnoreCase("organic cat")) {
+                    VirtualPet returnedPet = new OrganicCat(intakePetName, "organic", intakePetDescription, 10, 10, 10, 10, 10, 10);
+                    adoptablePets.intake(returnedPet);
+                } else if (petType.equalsIgnoreCase("organic dog")) {
+                    VirtualPet returnedPet = new OrganicDog(intakePetName, "organic", intakePetDescription, 10, 10, 10, 10, 10, 10);
+                    adoptablePets.intake(returnedPet);
+                } else if (petType.equalsIgnoreCase("robotic cat")) {
+                    VirtualPet returnedPet = new RoboticCat(intakePetName, "robotic", intakePetDescription, 10, 10, 10, 10, 10);
+                    adoptablePets.intake(returnedPet);
+                } else if (petType.equalsIgnoreCase("robotic dog")) {
+                    VirtualPet returnedPet = new RoboticDog(intakePetName, "robotic", intakePetDescription, 10, 10, 10, 10, 10);
+                    adoptablePets.intake(returnedPet);
+                }
+                ;
+                adoptablePets.petDisplay();
 
-            }
-            else if (menuOption.equals("7")){
-                showPetStatuses(adoptablePets);
-            }
-            else if (menuOption.equals("8")) {
+            } else if (menuOption.equals("10")) {
+               adoptablePets.petDisplay();
+            } else if (menuOption.equals("11")) {
                 System.out.println("You're a great worker! Have a good day");
                 break;
             } else {
                 System.out.println("Error! Please try again.");
             }
 
-            adoptablePets.tickMethod();
+           adoptablePets.tickMethod();
             System.out.println("Remember type 'help' to see menu!");
-
 
 
         }
@@ -93,25 +117,26 @@ public class VirtualPetShelterAPP {
         System.out.println("Press 2 to fill our bowls");
         System.out.println("Press 3 to clean the cages");
         System.out.println("Press 4 to play with us");
-        System.out.println("Press 5 to perform an adoption");
-        System.out.println("Press 6 to conduct an intake");
-        System.out.println("Press 7 to see the pets");
-        System.out.println("Press 8 to clock out");
+        System.out.println("Press 5 to scoop the litterbox");
+        System.out.println("Press 6 to walk the dogs");
+        System.out.println("Press 7 to oil the Robotic Pets");
+        System.out.println("Press 8 to perform an adoption");
+        System.out.println("Press 9 to conduct an intake");
+        System.out.println("Press 10 to see the pets");
+        System.out.println("Press 11 to clock out");
 
 
         System.out.println("To see menu throughout the game, type \"help\".");
 
-    }
-
-    public static void showPetStatuses(main.java.VirtualPetShelter adoptablePets) {
-        System.out.println("Pet Name and Description    |Hunger    |Thirst    |Fun    |Poop");
-
-        Map<String, main.java.VirtualPet> shelter = adoptablePets.getPets();
-        for (Map.Entry<String, main.java.VirtualPet> entry : shelter.entrySet()) {
-            main.java.VirtualPet petInfo = entry.getValue();
-            System.out.println(petInfo.getName() + ", " + petInfo.getDescription() + "         |" + petInfo.getHunger() + "            |" + petInfo.getThirst() + "         |" + petInfo.getFun() + "         |" + petInfo.getHygiene());
-        }
+   }
 
     }
-}
+
+
+
+
+
+
+
+
 

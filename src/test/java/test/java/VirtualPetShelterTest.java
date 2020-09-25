@@ -1,5 +1,7 @@
 package test.java;
 
+import main.java.OrganicCat;
+import main.java.RoboticCat;
 import main.java.VirtualPet;
 import main.java.VirtualPetShelter;
 import org.junit.Test;
@@ -8,134 +10,100 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 
 public class VirtualPetShelterTest {
-    VirtualPet underTest = new VirtualPet("Judge" , "An Orange Cat" , 10, 10, 10, 10);
+    VirtualPet underTest = new OrganicCat("Judge" ,"organic", "An Orange Cat" , 10, 10, 10, 10, 10, 10);
     VirtualPetShelter underTestShelter = new VirtualPetShelter();
-    VirtualPet adoptablePet = new VirtualPet("Ollie", "A Siamese Cat", 10, 10, 10, 10);
+    VirtualPet adoptablePet = new RoboticCat("Ollie", "robotic", "A Siamese Cat", 10, 10, 10, 10, 10);
 
 
 
     @Test
     public void petShouldHaveName() {
         String petName = underTest.getName();
+        String petName1 =adoptablePet.getName();
         assertEquals(petName, "Judge");
+        assertEquals(petName1, "Ollie");
+
     }
 
     @Test
-    public void petShouldHaveSpecies() {
-        String petSpecies = underTest.getDescription();
-        assertEquals(petSpecies, "An Orange Cat");
-    }
-
-
-    @Test
-    public void petShouldHaveHunger() {
-        int hunger = underTest.getHunger();
-        assertEquals(hunger, 10);
+    public void petShouldHaveDescription() {
+        String petDescription = underTest.getDescription();
+        assertEquals(petDescription, "An Orange Cat");
     }
     @Test
-    public void feedShouldReduceHungerToZeroAndIncreaseBathroom(){
-        underTest.feed();
-        int feedDecrease = underTest.getHunger();
-        int bathroomIncrease = underTest.getHygiene();
-        assertEquals(feedDecrease, 0);
-        assertEquals(bathroomIncrease, 11);
-
+    public void petShouldHaveFun() {
+        int fun = underTest.getFun();
+        int fun1 = adoptablePet.getFun();
+        assertEquals (fun, 10);
+        assertEquals(fun1, 10);
     }
+
+
 
     @Test
     public void playShouldDecreaseFunToZeroAndInfluenceAllOtherLevels(){
         underTest.play();
+        adoptablePet.play();
         int playReduceFun = underTest.getFun();
-        int playIncreaseHunger = underTest.getHunger();
-        int playIncreaseThirst = underTest.getThirst();
+        int playDecreaseHappiness = underTest.getHappiness();
+        int playDecreaseHealth = underTest.getHealth();
         int playDecreaseBathroom = underTest.getHygiene();
+        int playReduceFun1 = adoptablePet.getFun();
+        int playDecreaseHappiness1 = adoptablePet.getHappiness();
+        int playDecreaseHealth1 = adoptablePet.getHealth();
+        int playDecreaseBathroom1 = adoptablePet.getHygiene();
         assertEquals(playReduceFun, 0);
-        assertEquals(playIncreaseHunger, 11);
-        assertEquals(playIncreaseThirst, 11);
+        assertEquals(playDecreaseHappiness, 9);
+        assertEquals(playDecreaseHealth, 9);
         assertEquals(playDecreaseBathroom, 9);
+        assertEquals(playReduceFun1, 0);
+        assertEquals(playDecreaseHappiness1, 9);
+        assertEquals(playDecreaseHealth1, 9);
+        assertEquals(playDecreaseBathroom1, 9);
 
     }
 
 
-
-
-
-    @Test
-    public void petShouldHaveThirst() {
-        int thirst = underTest.getThirst();
-        assertEquals(thirst, 10);
-    }
-    @Test
-    public void waterShouldReduceThirstAndIncreaseBathroom(){
-        underTest.water();
-        int waterReduceThirst = underTest.getThirst();
-        int waterIncreaseBathroom = underTest.getHygiene();
-        assertEquals(waterReduceThirst, 0);
-        assertEquals(waterIncreaseBathroom, 11);
-
-    }
-
-
-    @Test
-    public void petShouldHaveFun() {
-        int fun = underTest.getFun();
-        assertEquals (fun, 10);
-    }
-
-    @Test
-    public void petShouldHaveHygiene() {
-        int bathroom = underTest.getHygiene();
-        assertEquals(bathroom, 10);
-    }
-    @Test
-    public void pottyShouldReduceBathroomToZero() {
-        underTest.pottyTime();
-        int bathroomReduce = underTest.getHygiene();
-        assertEquals(bathroomReduce, 0);
-
-    }
     @Test
     public void tickMethod(){
         underTest.tick();
-        int bathroomIncrease = underTest.getHygiene();
-        int playIncrease = underTest.getFun();
-        assertEquals(bathroomIncrease, 11);
-        assertEquals(playIncrease, 11);
+        adoptablePet.tick();
+        int tickFun = underTest.getFun();
+        int tickHappiness = underTest.getHappiness();
+        int tickHealth = underTest.getHealth();
+        int tickBathroom = underTest.getHygiene();
+        int tickFun1 = adoptablePet.getFun();
+        int tickHappiness1 = adoptablePet.getHappiness();
+        int tickHealth1 = adoptablePet.getHealth();
+        int tickBathroom1 = adoptablePet.getHygiene();
+        assertEquals(tickFun, 11);
+        assertEquals(tickHappiness, 11);
+        assertEquals(tickHealth, 11);
+        assertEquals(tickBathroom, 11);
+        assertEquals(tickFun1, 11);
+        assertEquals(tickHappiness1, 11);
+        assertEquals(tickHealth1, 11);
+        assertEquals(tickBathroom1, 11);
 
     }
+
     @Test
     public void intakeShouldAddPet(){
         underTestShelter.intake(adoptablePet);
+        underTestShelter.intake(underTest);
         String newPet = adoptablePet.getName();
+        String newPet1 = underTest.getName();
         assertEquals(newPet, "Ollie");
+        assertEquals(newPet1, "Judge");
     }
 
     @Test
     public void adoptShouldRemovePet(){
         underTestShelter.adoptPet("Judge");
-        assertNotEquals("Judge", "Ollie");
+        underTestShelter.adoptPet("Ollie");
+        assertNotEquals("Ollie", "Penny");
+        assertNotEquals("Judge", "Schnitzel");
 
-
-
-    }
-
-    @Test
-    public void feedShelterPetsShouldFeedAll(){
-        underTestShelter.feedShelterPets();
-        adoptablePet.feed();
-        assertEquals(adoptablePet.getHunger(), 0);
-
-
-
-    }
-
-    @Test
-    public void fillWaterBowlsShouldWaterAll(){
-        underTestShelter.intake(underTest);
-        underTestShelter.intake(adoptablePet);
-        underTestShelter.fillWaterBowls();
-        assertEquals(adoptablePet.getThirst(), 0);
-        assertEquals(underTest.getThirst(), 0);
     }
 
     @Test
@@ -155,12 +123,7 @@ public class VirtualPetShelterTest {
         assertEquals(adoptablePet.getFun(), 0);
         assertEquals(underTest.getFun(), 0);
     }
-    @Test
-    public void tickAllPets(){
-        underTestShelter.intake(adoptablePet);
-        underTestShelter.tickMethod();
-        assertEquals(adoptablePet.getHygiene(), 11 );
-    }
+
 
 
 
