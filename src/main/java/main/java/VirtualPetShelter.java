@@ -21,6 +21,25 @@ public class VirtualPetShelter {
     public void adoptPet(String petName) {
         theShelter.remove(petName);
     }
+    public void petDisplay () {
+
+        for (VirtualPet pet : theShelter.values()) {
+            if (pet instanceof OrganicPet){
+                System.out.println("Pet Name        |Type    |Description    |Happiness    |Health    |Poop    |Fun      |Hunger     |Thirst");
+                System.out.println(pet.toString());
+            }
+            else if(pet instanceof  RoboticPet){
+                System.out.println("Pet Name        |Type    |Description    |Happiness    |Health    |Poop    |Fun      |Oil");
+                System.out.println(pet.toString());
+            }
+
+        }
+    }
+
+//    public void displayPetName (){
+//        VirtualPet displayPetName = theShelter.values();
+//        System.out.println(displayPetName);
+//    }
 
     public void feedShelterPets() {
         for (VirtualPet allPets : theShelter.values()) {
@@ -70,6 +89,12 @@ public class VirtualPetShelter {
         }
     }
 
+    public void playWithOnePet(String petName) {
+        VirtualPet playWithOne = theShelter.get(petName);
+           playWithOne.play();
+        }
+
+
     public void oilRoboPets() {
         for (VirtualPet allPets : theShelter.values()) {
             if (allPets instanceof RoboticPet) {
@@ -92,20 +117,7 @@ public class VirtualPetShelter {
         }
     }
 
-        public void petDisplay () {
 
-            for (VirtualPet pet : theShelter.values()) {
-                if (pet instanceof OrganicPet){
-                    System.out.println("Pet Name        |Type    |Description    |Happiness    |Health    |Poop    |Fun      |Hunger     |Thirst");
-                    System.out.println(pet.toString());
-                }
-                else if(pet instanceof  RoboticPet){
-                    System.out.println("Pet Name        |Type    |Description    |Happiness    |Health    |Poop    |Fun      |Oil");
-                    System.out.println(pet.toString());
-                }
-
-            }
-        }
 //    public void showNames(VirtualPetShelter allPets) {
 //        for (VirtualPet pet : theShelter.values()) {
 //            VirtualPet petName = ;

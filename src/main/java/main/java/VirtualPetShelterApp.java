@@ -10,6 +10,7 @@ public class VirtualPetShelterApp {
         Scanner input = new Scanner(System.in);
         Scanner reply = new Scanner(System.in);
         Scanner breed = new Scanner(System.in);
+        Scanner inputTo = new Scanner(System.in);
         main.java.VirtualPetShelter adoptablePets = new main.java.VirtualPetShelter();
          adoptablePets.intake(new main.java.OrganicCat("Ollie", "organic", "A Siamese Cat", 10, 10, 10, 10, 10, 10));
         adoptablePets.intake(new main.java.RoboticCat("Jelly", "robotic", "A Persian Cat", 10, 10, 10, 10, 10));
@@ -50,8 +51,18 @@ public class VirtualPetShelterApp {
                 adoptablePets.cleanPoop();
 
             } else if (menuOption.equals("4")) {
-                System.out.println("Thanks for letting us out. Now guests can see that we've been coming out of our cages and doing just fine");
-                adoptablePets.playWithAllPets();
+                System.out.println("Do you want to play with all pets or a one pet? Type all for all or one for one");
+                String playOption =inputTo.nextLine();
+                if (playOption.equalsIgnoreCase("one")){
+                    System.out.println("Which pet do you want to play with?");
+                    String petName =reply.nextLine();
+                    adoptablePets.playWithOnePet(petName);
+                    System.out.println("Thank you for playing with " + petName);
+                }
+                else if (playOption.equalsIgnoreCase("all")) {
+                    System.out.println("Thanks for letting us out. Now guests can see that we've been coming out of our cages and doing just fine");
+                    adoptablePets.playWithAllPets();
+                }
             } else if (menuOption.equals("5")) {
                 System.out.println("Those litterboxes were starting to smell. Thank you! ");
                 adoptablePets.cleanAllLitterbox();
@@ -63,7 +74,7 @@ public class VirtualPetShelterApp {
                 adoptablePets.oilRoboPets();
             } else if (menuOption.equals("8")) {
                 System.out.println("Congratulations on doing a great job as a shelter worker! Which pet is being adopted?");
-//                adoptablePets.showNames();
+//                adoptablePets.displayPetName();
                 String petName = input.next();
                 adoptablePets.adoptPet(petName);
              adoptablePets.petDisplay();
