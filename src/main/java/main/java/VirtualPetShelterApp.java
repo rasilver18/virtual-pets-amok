@@ -12,11 +12,11 @@ public class VirtualPetShelterApp {
         Scanner breed = new Scanner(System.in);
         Scanner inputTo = new Scanner(System.in);
         main.java.VirtualPetShelter adoptablePets = new main.java.VirtualPetShelter();
-         adoptablePets.intake(new main.java.OrganicCat("Ollie", "organic", "A Siamese Cat", 10, 10, 10, 10, 10, 10));
+         adoptablePets.intake(new main.java.OrganicCat("Judge", "organic", "An Orange Cat", 10, 10, 10, 10, 10, 10));
         adoptablePets.intake(new main.java.RoboticCat("Jelly", "robotic", "A Persian Cat", 10, 10, 10, 10, 10));
          adoptablePets.intake(new main.java.OrganicCat("Schnitzel", "organic", "A fat calico", 10, 10, 10, 10, 10, 10));
         adoptablePets.intake(new main.java.RoboticDog("Rufus", "robotic", "Actually a Furby", 10, 10, 10, 10, 10));
-        adoptablePets.intake(new main.java.OrganicDog("Professor", "organic", "A good pug", 10, 10, 10, 10, 10, 10));
+        adoptablePets.intake(new main.java.OrganicDog("Ollie", "organic", "Dog who wants to be a cat", 10, 10, 10, 10, 10, 10));
           adoptablePets.intake(new main.java.RoboticDog("Stitch", "robotic", "He's blue", 10, 10, 10, 10, 10));
 
         System.out.println("Thanks for signing in for your shift today!");
@@ -74,7 +74,7 @@ public class VirtualPetShelterApp {
                 adoptablePets.oilRoboPets();
             } else if (menuOption.equals("8")) {
                 System.out.println("Congratulations on doing a great job as a shelter worker! Which pet is being adopted?");
-//                adoptablePets.displayPetName();
+                showPetNames(adoptablePets);
                 String petName = input.next();
                 adoptablePets.adoptPet(petName);
              adoptablePets.petDisplay();
@@ -141,6 +141,15 @@ public class VirtualPetShelterApp {
 
    }
 
+    public static void showPetNames(VirtualPetShelter adoptablePets) {
+
+        Map<String, VirtualPet> shelter = adoptablePets.getPets();
+        for (Map.Entry<String, VirtualPet> entry : shelter.entrySet()) {
+            VirtualPet petInfo = entry.getValue();
+            System.out.println(petInfo.getName());
+        }
+
+    }
     }
 
 

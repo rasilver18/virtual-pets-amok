@@ -36,10 +36,7 @@ public class VirtualPetShelter {
         }
     }
 
-//    public void displayPetName (){
-//        VirtualPet displayPetName = theShelter.values();
-//        System.out.println(displayPetName);
-//    }
+
 
     public void feedShelterPets() {
         for (VirtualPet allPets : theShelter.values()) {
@@ -116,6 +113,8 @@ public class VirtualPetShelter {
             }
         }
     }
+
+
 
 
 //    public void showNames(VirtualPetShelter allPets) {
